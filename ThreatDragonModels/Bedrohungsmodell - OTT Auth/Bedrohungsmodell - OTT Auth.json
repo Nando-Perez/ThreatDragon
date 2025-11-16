@@ -2352,6 +2352,7 @@
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 15,
             "ports": {
               "groups": {
                 "top": {
@@ -2435,7 +2436,6 @@
               ]
             },
             "id": "7e38ddd7-1536-4611-8043-f9a1a5014751",
-            "zIndex": 15,
             "data": {
               "type": "tm.Process",
               "name": "SIEM-System",
@@ -2472,6 +2472,7 @@
             },
             "visible": true,
             "shape": "actor",
+            "zIndex": 16,
             "ports": {
               "groups": {
                 "top": {
@@ -2555,7 +2556,6 @@
               ]
             },
             "id": "80e0b304-be6c-44aa-9af8-33325355b31f",
-            "zIndex": 16,
             "data": {
               "type": "tm.Actor",
               "name": "Management",
@@ -2589,6 +2589,7 @@
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 17,
             "ports": {
               "groups": {
                 "top": {
@@ -2672,7 +2673,6 @@
               ]
             },
             "id": "924d7467-7b47-4dcb-aa88-4cf74b1defac",
-            "zIndex": 17,
             "data": {
               "type": "tm.Process",
               "name": "Signieren und \nVerschlüsseln\nüber Standard \nSoftware",
