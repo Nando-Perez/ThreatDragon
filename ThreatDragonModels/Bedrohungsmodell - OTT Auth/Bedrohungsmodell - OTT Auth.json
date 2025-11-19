@@ -444,15 +444,6 @@
               },
               "handlesCardPayment": null,
               "handlesGoodsOrServices": null
-            },
-            "tools": {
-              "items": [
-                "boundary",
-                "button-remove",
-                "boundary",
-                "button-remove"
-              ],
-              "name": null
             }
           },
           {
@@ -573,7 +564,7 @@
                   "title": "Symmetrischer Schlüssel wird unverschlüsselt auf dem Server gespeichert",
                   "status": "Open",
                   "severity": "TBD",
-                  "type": "Information disclosure",
+                  "type": "Elevation of privilege",
                   "description": "Provide a description for this threat",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
@@ -589,7 +580,7 @@
                 "repudiation": 0,
                 "informationDisclosure": 1,
                 "denialOfService": 0,
-                "elevationOfPrivilege": 0
+                "elevationOfPrivilege": 1
               }
             }
           },
@@ -2811,7 +2802,7 @@
     ],
     "reviewer": "Georg Neugebauer",
     "diagramTop": 10,
-    "threatTop": 108
+    "threatTop": 109
   },
   "version": "2.5.0"
 }
