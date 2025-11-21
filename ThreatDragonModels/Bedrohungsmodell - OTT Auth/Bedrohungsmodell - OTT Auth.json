@@ -138,7 +138,7 @@
           {
             "position": {
               "x": 280,
-              "y": -6.999999999999922
+              "y": 3
             },
             "size": {
               "width": 130,
@@ -265,14 +265,14 @@
                   "id": "3a212e6d-079c-46d8-a331-d093f50ccbd2",
                   "title": "Speicherung aller App Daten auf der SD Karte",
                   "status": "Open",
-                  "severity": "Medium",
+                  "severity": "Low",
                   "type": "Tampering",
                   "description": "Da alle Daten der App auf der SD Karte gespeichert werden können diese leicht manipuliert werden. Da sie am ehesten nicht verschlüsselt auf de SD Karte gespeichert werden und diese SD Karten können oft auch aus Geräten entfernt und isoliert analysiert oder manipuliert werden. Grund dafür ist auch damit andere Anwendungen auf diese Daten zugreifen können.\n\nCAPEC-639: Probe System Files\nAn adversary obtains unauthorized information due to improperly protected files. If an application stores sensitive information in a file that is not protected by proper access control, then an adversary can access the file and search for sensitive information.\n\nMITRE T1409 Stored Application Data\nAdversaries may try to access and collect application data resident on the device. Adversaries often target popular applications, such as Facebook, WeChat, and Gmail.[1]\n\nDue to mobile OS sandboxing, this technique is only possible in three scenarios:\n\nAn application stores files in unprotected external storage\nAn application stores files in its internal storage directory with insecure permissions (e.g. 777)\nThe adversary gains root permissions on the device\n\n\nDREA:\nD: 10 (Da alle Daten ausnahmslos auf der SD Karte gespeichert sind kann dies massiven Schaden sein)\nR: 2.5 (Man braucht physischen Zugang zu dem Gerät, daher vermutlich schwer wiederholbar)\nE:  5 (Man braucht Zugriff auf die Daten der SD Karte am ehesten durch Zugriff auf das Handy)\nA: 10 (Alle User die die App verwenden \nGesamt: 27.5",
-                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "mitigation": "Keine sensiblen App-Daten im externen/Shared Storage (SD-Karte) speichern.\nAlle sensiblen Daten nur in geschütztem App-internen Speicher ablegen; falls doch Speicherung nötig ist, zusätzlich mit starker Kryptografie und Schlüsseln aus dem OS-Keystore schützen.\n\nKatalog\nMASVS-STORAGE-1 \nThe app securely stores sensitive data.\n& \nMASVS-CRYPTO-1\nThe app employs current strong cryptography and uses it according to industry best practices\n\nDREA nach Maßnahme:\nD: 0 (Da keine wichtige Daten mehr extern gespeichert und falls doch sicher verschlüsselt sind)\nR: 2.5 (Man braucht weiterhin physischen Zugang zum Gerät)\nE: 2 (Wichtigsten Daten in einem privaten Storage und nicht mehr auf SD selbst wenn Angreifer an SD kommt sind Daten verschlüsselt)\nA: 10 (Immernoch für alle User relevant)",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 108,
-                  "score": "27.5"
+                  "score": "14.5"
                 }
               ],
               "hasOpenThreats": true,
@@ -281,10 +281,10 @@
               "handlesGoodsOrServices": null,
               "threatFrequency": {
                 "spoofing": 1,
-                "tampering": 7,
+                "tampering": 11,
                 "repudiation": 0,
                 "informationDisclosure": 1,
-                "denialOfService": 3,
+                "denialOfService": 5,
                 "elevationOfPrivilege": 0
               }
             }
@@ -292,7 +292,7 @@
           {
             "position": {
               "x": 488,
-              "y": -11.999999999999922
+              "y": -7
             },
             "size": {
               "width": 130,
@@ -406,27 +406,27 @@
                   "id": "bd51add6-8150-4d47-ab52-9495ca87c485",
                   "title": "Authentifizierungssession ist ein Jahr gültig (wohl für Usability)",
                   "status": "Open",
-                  "severity": "High",
+                  "severity": "Low",
                   "type": "Elevation of privilege",
                   "description": "Da die Authentifizierungssession ein Jahr lang gültig ist könnten Angreifer wenn sie an das PW des Users kommen sich als diesen ausgeben. Damit hätte der Angreifer Rechte bzw. Privilegien die er normalerweise nicht hätte. Ggf. auch wenn dies ein Account mit hohen rechten ist.\n\nCAPEC-560: Use of Known Domain Credentials\nAn adversary guesses or obtains (i.e. steals or purchases) legitimate credentials (e.g. userID/password) to achieve authentication and to perform authorized actions under the guise of an authenticated user or service.\n\nMITRE T1078 – Valid Accounts\nAdversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation ...\n\n\nDREA:\nD: 10 (Sobald der Angreifer Zugang zum Account hat kann er alles mit diesem machen)\nR: 7 (Sobald der Angreifer das PW des Users hat kann er den Angriff beliebig oft wiederholen, allerdings würden die meisten User ihr PW bei Auffälligkeiten ändern)\nE: 4.5 (Angreifer muss an das PW des Users kommen & auch hoffen das dieser den zweiten Faktor bereits erfüllt hat)\nA: 9 (Es könnten in der Theorie alle User betroffen sein, an dessen PW der Angreifer kommt)\nGesamt: 30.5",
-                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "mitigation": "Maßnahme:\nDie Session Dauer drastisch verkürzen. Für allgemeine User auf maximal 10 Stunden - 1 Tag. Für sicherheitsrelevante Accounts z.B. Admin deutlich kürzer ggf. 1 Stunde oder jedesmal neues Abfragen. \nBei allen Modifikationen des Users bspw. Mail oder PW muss eine erneute Authentifizierung per Token folgen.\n\nKatalog ASVS: \nV7.3 Session Timeout - 7.3.2\nVerify that there is an absolute maximum session lifetime such that\nre‑authentication is enforced according to risk analysis and documented\nsecurity decisions.\n\nV7.5 Defenses Against Session Abuse - 7.5.1\nVerify that the application requires full re‑authentication before allowing\nmodifications to sensitive account attributes which may affect\nauthentication such as email address, phone number, MFA configuration, or\nother information used in account recovery\n\nDREA nach Maßnahme:\nD: 1 (Selbst wenn ANgreifer an PW kommt er kann keine Credentials ändern oder zweiten Faktor und muss hoffen das er sich im Zeitrahmen befinden indem die Session noch gültig ist)\nR: 0 (Angriff so gut wie garnicht wiederholbar da Session relativ kurz gehalten ist)\nE: 1 (Selbst wenn PW herausgefunden wurde ist das Zeitfenster deutlich enger geworden daher deutlich schwierige Auszunutzen)\nA: 9 (User die betroffen sein können bleiben unverändert)",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 104,
-                  "score": ""
+                  "score": "11"
                 },
                 {
                   "id": "2c4267fe-3a2a-4686-9e9f-4dcfc9a8cf6f",
-                  "title": "Fehlende Redundanz des 2-Faktor Authentifizierungsdienst",
+                  "title": "Fehlende Redundanz des 2-Faktor Authentifizierungsdienst (Single Point of Failure)",
                   "status": "Open",
-                  "severity": "High",
+                  "severity": "Medium",
                   "type": "Denial of service",
                   "description": "Aufgrund von fehlender Redundanz des Servers. Kann der Angreifer mir mehrere Anfragen diesen überlasten und da es keinerlei Lastverteilung gibt würde bei einem Absturz dieses Dienstes auch zum Absturz des gesamten Systems kommen.\n\nCAPEC-125: Flooding\nAn adversary consumes the resources of a target by rapidly engaging in a large number of interactions with the target. This type of attack generally exposes a weakness in rate limiting or flow. When successful this attack prevents legitimate users from accessing the service and can cause the target to crash. This attack differs from resource depletion through leaks or allocations in that the latter attacks do not rely on the volume of requests made to the target but instead focus on manipulation of the target's operations. The key factor in a flooding attack is the number of requests the adversary can make in a given period of time. The greater this number, the more likely an attack is to succeed against a given target.\n\nMITRE  T1499.003 – Endpoint Denial of Service: Application Exhaustion Flood\nAdversaries may target resource intensive features of applications to cause a denial of service (DoS), denying availability to those applications. For example, specific features in web applications may be highly resource intensive. Repeated requests to those features may be able to exhaust system resources and deny access to the application or the server itself.\n\n\nDREA:\nD: 10 (System kann komplett ausfallen)\nR: 10 (Angriff kann immer ausgeführt werden wenn das System läuft - wenn es einmal ausgefallen wäre der Wert auf 0)\nE: 6 ( Benötigt Botnetz und technisches Knowhow)\nA: 10 (Würde alle User betreffen)\nGesamt:36",
-                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "mitigation": "Maßnahme:\nRedundante Architektur und einen Load Balancer für die Anfragen. Dies ist natürlich Abhängig von möglichen finanziellen Möglichkeiten. \nAnfragen Limitierung auf den 2 Faktor von einer IP Adresse aus bzw. von einem Account aus.\n\nKatalog:\nD3-ITF \nRestricting network traffic originating from untrusted networks destined towards a private host or enclave.\n&\nD3-ISVA\nAnalyzing inbound network session or connection attempt volume.\n\nDREA nach Maßnahme:\nD: 4 (System zum Ausfall bringen deutlich schwerer aber nicht unmöglich)\nR: 10 (Angriff kann mehrfach ausgeführt werden\nE: 2 (Deutlich schwieirger da mehrfache Anfragen aus einem Account bzw. einer IP limitiert werden)\nA: 10 (DDOS würde alle user betreffen)",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 105,
-                  "score": ""
+                  "score": "26"
                 }
               ],
               "hasOpenThreats": true,
@@ -439,11 +439,12 @@
                 "tampering": 1,
                 "repudiation": 0,
                 "informationDisclosure": 0,
-                "denialOfService": 10,
-                "elevationOfPrivilege": 8
+                "denialOfService": 18,
+                "elevationOfPrivilege": 12
               },
               "handlesCardPayment": null,
-              "handlesGoodsOrServices": null
+              "handlesGoodsOrServices": null,
+              "isWebApplication": null
             }
           },
           {
@@ -563,25 +564,28 @@
                   "id": "ba0a8a1b-3a40-486a-83a4-37d2435a1e2c",
                   "title": "Symmetrischer Schlüssel wird unverschlüsselt auf dem Server gespeichert & ",
                   "status": "Open",
-                  "severity": "TBD",
+                  "severity": "Medium",
                   "type": "Spoofing",
-                  "description": "Da der Symmetrische Schlüssel unverschlüsselt auf dem Server gespeichert wird. Können sich Angreifer, falls sie diesen in die Hände bekommen als den Server ausgeben und ggf. Dinge ausführen, die sonst nur der Server durchführen dürfte/könnte.\n\nCAPEC-474 – Signature Spoofing by Key Theft\nAn attacker obtains an authoritative or reputable signer's private signature key by theft and then uses this key to forge signatures from the original signer to mislead a victim into performing actions that benefit the attacker.\n\nMITRE T1552.004 – Unsecured Credentials: Private Keys\nAdversaries may search for private key certificate files on compromised systems for insecurely stored credentials ...\n\n\nDREA:\nD:\nR:\nE:\nA:\nGesamt:",
-                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "description": "Da der Symmetrische Schlüssel unverschlüsselt auf dem Server gespeichert wird. Können sich Angreifer, falls sie diesen in die Hände bekommen als den Server ausgeben und ggf. Dinge ausführen, die sonst nur der Server durchführen dürfte/könnte.\n\nCAPEC-474 – Signature Spoofing by Key Theft\nAn attacker obtains an authoritative or reputable signer's private signature key by theft and then uses this key to forge signatures from the original signer to mislead a victim into performing actions that benefit the attacker.\n\nMITRE T1552.004 – Unsecured Credentials: Private Keys\nAdversaries may search for private key certificate files on compromised systems for insecurely stored credentials ...\n\n\nDREA:\nD: 10 (Mit dem symmetrischen Schlüssel kann sich der ANgreifer als der Server ausgeben und Daten abfangen und verändern)\nR: 10 (Der ANgriff kann ohne das der Angreifer auffällt beliebig oft durchgeführt werden)\nE: 8 (Angreifer muss an die Daten des Servers kommen um den Schlüssel zu erhalten - Server meist public erreichbar potenzielle Gefahr)\nA: 10 (Alle user des Dienstes wären betroffen, weil der Angreifer ja die Nummer ändern könnte ggf. auf seine um den 2. Faktor selbst zu bestätigen)\nGesamt: 38",
+                  "mitigation": "Maßnahmen:\nDer symmetrische Schlüssel wird nicht unverschlüsselt auf dem Server gespeichert. Stattdessen wird er verschlüsselt an einem seperaten sichern Ort gespeichert z.B. Hardware Sicherheitsmodul (HSM). \nZugriff auf den Schlüssel nur durch deizierte Accounts z.B. Admin. Und regelmäßige Rotation des Schlüssel , damit falls ein Angreifer einen Schlüssel abfängt dieser nicht ewig gültig ist.\n\nKatalog:\nD3EFEND: D§- FE (File Encryption) Encrypting a file using a cryptographic key.\n\nDREA nach Maßnahme:\nD: 2 (Im schlimmsten Fall könnte der Angreifer wenn er an den Schlüssel kommt diesen löschen - wenn überhaupt)\nR: 10 (Angreifer kann weiterhin versuchen an den Schlüssel zu kommen)\nE: 0 (Nur durch ausgewählte User der Schlüssel erreichbar und zusätzlich VErschlüsselt)\nA: 10 (alle user weiterhin betroffen)",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 106,
-                  "score": ""
+                  "score": "22"
                 }
               ],
               "hasOpenThreats": true,
               "threatFrequency": {
-                "spoofing": 4,
+                "spoofing": 12,
                 "tampering": 0,
                 "repudiation": 0,
                 "informationDisclosure": 1,
                 "denialOfService": 0,
                 "elevationOfPrivilege": 2
-              }
+              },
+              "handlesCardPayment": null,
+              "handlesGoodsOrServices": null,
+              "isWebApplication": null
             }
           },
           {
@@ -1166,6 +1170,10 @@
                 "y": 440
               },
               {
+                "x": 1310,
+                "y": 350
+              },
+              {
                 "x": 1040,
                 "y": 270
               },
@@ -1629,8 +1637,7 @@
             "shape": "flow",
             "attrs": {
               "line": {
-                "stroke": "red",
-                "strokeWidth": 2.5,
+                "stroke": "#333333",
                 "targetMarker": {
                   "name": "block"
                 },
@@ -1651,26 +1658,12 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": true,
+              "hasOpenThreats": false,
               "isBidirectional": false,
               "isEncrypted": false,
               "isPublicNetwork": false,
               "protocol": "",
-              "threats": [
-                {
-                  "id": "64b34908-35e4-498f-bc2a-6abd4fa30a8d",
-                  "title": "Übertragung der Daten für Telefonnummerauflösung sind unverschlüsselt",
-                  "status": "Open",
-                  "severity": "TBD",
-                  "type": "Information disclosure",
-                  "description": "Da der externe Dienst komplett auf Verschlüsselung bei der Übertragung von der Telefonnummer verzichtet könnte ein Angreifer entweder bei der Datenübertragung selbst oder wenn er im System ist auf diese Daten zugreifen bzw. diese abfangen und einfach mitlesen.\n\nCAPEC-94: Adversary in the Middle (AiTM):\nAn adversary targets the communication between two components (typically client and server), in order to alter or obtain data from transactions. A general approach entails the adversary placing themself within the communication channel between the two components.\n\nMITRE T1040 – Network Sniffing\nAdversaries may passively sniff network traffic to capture information about an environment, including authentication material passed over the network. ...\n\n\nDREA:\nD:\nR:\nE:\nA:\nGesamt",
-                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
-                  "modelType": "STRIDE",
-                  "new": false,
-                  "number": 113,
-                  "score": ""
-                }
-              ],
+              "threats": [],
               "threatFrequency": {
                 "tampering": 0,
                 "informationDisclosure": 5,
@@ -1689,6 +1682,10 @@
               "port": "67a72363-26be-4078-816e-92492f59b375"
             },
             "vertices": [
+              {
+                "x": 530,
+                "y": 480
+              },
               {
                 "x": 490,
                 "y": 460
@@ -1872,56 +1869,6 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "Daten senden\nper E-Mail",
-              "description": "",
-              "outOfScope": false,
-              "isTrustBoundary": false,
-              "reasonOutOfScope": "",
-              "hasOpenThreats": false,
-              "isBidirectional": false,
-              "isEncrypted": true,
-              "isPublicNetwork": false,
-              "protocol": "",
-              "threats": []
-            },
-            "labels": [
-              "Daten senden\nper E-Mail"
-            ],
-            "id": "2ebb9ce5-93fd-4771-85b3-62b2acd50be0",
-            "source": {
-              "cell": "924d7467-7b47-4dcb-aa88-4cf74b1defac"
-            },
-            "target": {
-              "cell": "80e0b304-be6c-44aa-9af8-33325355b31f",
-              "port": "72945642-0186-4288-b3a1-b8625952f2b3"
-            },
-            "vertices": [
-              {
-                "x": 1020,
-                "y": 360
-              }
-            ]
-          },
-          {
-            "shape": "flow",
-            "attrs": {
-              "line": {
-                "stroke": "#333333",
-                "targetMarker": {
-                  "name": "block"
-                },
-                "sourceMarker": {
-                  "name": ""
-                },
-                "strokeDasharray": null
-              }
-            },
-            "width": 200,
-            "height": 100,
-            "zIndex": 10,
-            "connector": "smooth",
-            "data": {
-              "type": "tm.Flow",
               "name": "Korrelierte\nDaten",
               "description": "",
               "outOfScope": false,
@@ -1951,6 +1898,101 @@
                 "y": 240
               }
             ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Daten senden\nper E-Mail",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Daten senden\nper E-Mail"
+            ],
+            "id": "2ebb9ce5-93fd-4771-85b3-62b2acd50be0",
+            "source": {
+              "cell": "924d7467-7b47-4dcb-aa88-4cf74b1defac"
+            },
+            "target": {
+              "cell": "d5b308ed-340e-4762-84ef-957ab92e0f4c",
+              "port": "6691f81f-b69c-4bf2-af09-a65a10eec253"
+            },
+            "vertices": [
+              {
+                "x": 910,
+                "y": 320
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Data Flow",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "",
+              "threats": []
+            },
+            "labels": [
+              "Data Flow"
+            ],
+            "id": "312259d2-1a54-4c8c-9eca-621bf8593c40",
+            "source": {
+              "cell": "d5b308ed-340e-4762-84ef-957ab92e0f4c",
+              "port": "705b4731-cd03-4a86-aca2-1f225936e14d"
+            },
+            "target": {
+              "cell": "80e0b304-be6c-44aa-9af8-33325355b31f",
+              "port": "72945642-0186-4288-b3a1-b8625952f2b3"
+            }
           },
           {
             "position": {
@@ -2078,19 +2120,19 @@
                   "id": "44c14f29-7f65-4208-886a-632005b85f74",
                   "title": "Gefahr des Log Overflows aufgrund von mangelnder Redundanz",
                   "status": "Open",
-                  "severity": "Medium",
+                  "severity": "Low",
                   "type": "Repudiation",
                   "description": "Aufgrund dessen, dass der Authentifizierungsserver so viele Daten wie möglich speichern soll, werden diese in der Log-DB gespeichert. Das kann dazu führen, wenn ein Angreifer seine Spuren verwischen will das er einfach mehrere Anfragen erstellt und somit dafür sorgt, dass seine auffällige Anfrage aus der Log-DB verschwindet.\n\nCAPEC-268 : Audit Log Manipulation\nThe attacker injects, manipulates, deletes, or forges malicious log entries into the log file, in an attempt to mislead an audit of the log file or cover tracks of an attack. Due to either insufficient access controls of the log files or the logging mechanism, the attacker is able to perform such actions.\n\nMITRE T1565.001 Data Manipulation: Stored Data Manipulation\nAdversaries may insert, delete, or manipulate data at rest in order to influence external outcomes or hide activity, thus threatening the integrity of the data.[1][2] By manipulating stored data, adversaries may attempt to affect a business process, organizational understanding, and decision making.\n\nStored data could include a variety of file formats, such as Office files, databases, stored emails, and custom file formats. The type of modification and the impact it will have depends on the type of data as well as the goals and objectives of the adversary. For complex systems, an adversary would likely need special expertise and possibly access to specialized software related to the system that would typically be gained through a prolonged information gathering campaign in order to have the desired impact.\n\nDREA:\nD: 2.5 (Grundsätzlich entsteht für das Unternehmen kein großer Schaden außer das nicht nachvollziehbar sein könnte wer potenziell versucht hat anzugreifen)\nR: 10 (Der Angriff kann ohne weiteres wiederholt ausgeführt werden, falls der Angreifer möchte das die Daten aus den Logs verschwinden)\nE: 5 (Der Angreifer benötigt am ehesten ein Bot Netz um eine Vielzahl an Anfragen zu generieren)\nA: 0 (Kein User wäre betroffen, wenn die Logs manipuliert wären)\nGesamt: 17.5",
-                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "mitigation": "Maßnahme: Security-relevante Logs (z. B. fehlgeschlagene Logins, verdächtige Requests) werden auf sofort auf das zentrales SIEM  geschrieben & dort gespeichert um eventuelle Manipulationen entgegen zu wirken. \nZusätzlich werden Anfragen von einer IP Adresse oder allgemein Usern reduziert bzw. einem Limit ausgesetzt. Falls die Anfragen in verdächtig hoher Frequenz erscheinen\n\nKatalog ASVS: V16.4 - 16.4.3\nVerify that logs are securely transmitted to a logically separate system for analysis, detection, alerting, and escalation. The aim is to ensure that if the application is breached, the logs are not compromised.\n\nDREA nach Maßnahme:\nD: 0 (Loggs könnten zwar weiter manipuliert werden, sind aber nun direkt im SIEM sichergestellt)\nR: 10 (Angriff kann weiterhin ohne weiteres mehrfach durchführen - jedoch jetzt ohne Impact)\nE: 1 (Angreifer müsste direkten EInfluss auf das SIEM haben müssen um die Daten zu verfälschen bzw. verschwinden zu lassen)\nA: 0",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 107,
-                  "score": ""
+                  "score": "11"
                 }
               ],
               "threatFrequency": {
                 "tampering": 1,
-                "repudiation": 8,
+                "repudiation": 14,
                 "informationDisclosure": 0,
                 "denialOfService": 0
               }
@@ -2346,7 +2388,7 @@
           {
             "position": {
               "x": 285,
-              "y": 200
+              "y": 195
             },
             "size": {
               "width": 120,
@@ -2357,8 +2399,8 @@
                 "text": "Allsecure Mobile \nPhone OTT\nService"
               },
               "body": {
-                "stroke": "red",
-                "strokeWidth": 2.5,
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
                 "strokeDasharray": null
               }
             },
@@ -2455,26 +2497,12 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": true,
+              "hasOpenThreats": false,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": [
-                {
-                  "id": "1e10b1fe-bca9-430a-a403-3a0288f18d1f",
-                  "title": "Übertragung der Daten für Telefonnummerauflösung sind unverschlüsselt",
-                  "status": "Open",
-                  "severity": "TBD",
-                  "type": "Information disclosure",
-                  "description": "Da der externe Dienst komplett auf Verschlüsselung bei der Übertragung von der Telefonnummer verzichtet könnte ein Angreifer entweder bei der Datenübertragung selbst oder wenn er im System ist auf diese Daten zugreifen bzw. diese abfangen und einfach mitlesen.\n\nCAPEC-94: Adversary in the Middle (AiTM):\nAn adversary targets the communication between two components (typically client and server), in order to alter or obtain data from transactions. A general approach entails the adversary placing themself within the communication channel between the two components.\n\nMITRE T1040 – Network Sniffing\nAdversaries may passively sniff network traffic to capture information about an environment, including authentication material passed over the network. ...\n\n\nDREA:\nD:\nR:\nE:\nA:\nGesamt:",
-                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
-                  "modelType": "STRIDE",
-                  "new": false,
-                  "number": 112,
-                  "score": ""
-                }
-              ],
+              "threats": [],
               "threatFrequency": {
                 "spoofing": 0,
                 "tampering": 0,
@@ -2607,8 +2635,8 @@
           },
           {
             "position": {
-              "x": 1060,
-              "y": 355
+              "x": 1140,
+              "y": 360
             },
             "size": {
               "width": 112.5,
@@ -2724,8 +2752,8 @@
           },
           {
             "position": {
-              "x": 840,
-              "y": 200
+              "x": 810,
+              "y": 195
             },
             "size": {
               "width": 110,
@@ -2841,6 +2869,148 @@
               "privilegeLevel": "",
               "threats": []
             }
+          },
+          {
+            "position": {
+              "x": 940,
+              "y": 340
+            },
+            "size": {
+              "width": 60,
+              "height": 80
+            },
+            "attrs": {
+              "text": {
+                "text": "Mail\nServer"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "61250911-95ab-4873-b02a-45f22c649051"
+                },
+                {
+                  "group": "right",
+                  "id": "705b4731-cd03-4a86-aca2-1f225936e14d"
+                },
+                {
+                  "group": "bottom",
+                  "id": "6be08481-bb2f-48fc-85b0-76620fb52382"
+                },
+                {
+                  "group": "left",
+                  "id": "6691f81f-b69c-4bf2-af09-a65a10eec253"
+                }
+              ]
+            },
+            "id": "d5b308ed-340e-4762-84ef-957ab92e0f4c",
+            "zIndex": 18,
+            "data": {
+              "type": "tm.Process",
+              "name": "Mail\nServer",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": false,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "1fbfbabf-b761-4cbd-873f-d72c75f31c5f",
+                  "title": "Das SIEM-System schickt einen wöchentlichen Report per E-Mail",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Information disclosure",
+                  "description": "Das SIEM schickt wöchentliche Berichte an den Mail Server diese sind zwar verschlüsselt liegen aber dennoch auf dem Mail Server des Managements und werden von diesen ggf. entschlüsselt und dort abgelegt. Durch einen Phsishing Angriff könnte ein ANgreifer auch an diese Daten kommen. Ggf. auf Brute Forcen um die Daten selbst zu entschlüsseln.\n\nCAPEC-98: Phishing\nPhishing is a social engineering technique where an attacker masquerades as a legitimate entity with which the victim might do business in order to prompt the user to reveal some confidential information (very frequently authentication credentials) that can later be used by an attacker. Phishing is essentially a form of information gathering or \"fishing\" for information. \n\nT1566 – Phishing:\nAdversaries may send phishing messages to gain access to victim systems. All forms of phishing are electronically delivered social engineering. Phishing can be targeted, known as spearphishing. In spearphishing, a specific individual, company, or industry will be targeted by the adversary. More generally, adversaries can conduct non-targeted phishing, such as in mass malware spam campaigns.\n\nDREA:\nD: 5 (Daten ggf. noch verschlüsselt)\nR: 7 (Angreifer kann mehrfache Phishing ANgriffe durchführen ohne weitere Probleme - nur User wird Mail PW ggf. schnell ändern und wird vermutlich nicht nochmal drauf reinfallen)\nE: 10 (Man benötigt nur einen Browser und die Mail des Managements diese sind meist öffentlich bekannt)\nA: 10 (Zwar ist nur der Manager Account betroffen, aber die Daten sind von allen Usern die in den Logs zu erkennen sind ggf. mit Credentials etc.)\nGesamt: 32",
+                  "mitigation": "Sensible Daten aus dem SIEM nur über internes Portal verfügbar machen & NICHT über den Mail Server und diesen dort abspeichern. \nDafür wird ein seperates Speichermedium verwendet z.B. Festplatte und diese wir zusätzlich räumlich abgesperrt nur für ausgewählte Mitarbeiter zugänglich gemacht und verschlüsselt.\nNun könnte der Angreifer nicht mehr über einen Phishing Angriff an die Daten ran kommen.\n\nKatalog:\nOWASP MASVS-STORAGE-1:\nThe app securely stores sensitive data.\n... The storage locations may be private to the app (e.g. its internal storage) ...\n\nDREA nach Maßnahme:\nD: 5 (Daten immernoch wichtig und verschlüsselt)\nR: 0 (Angreifer müsste an das physische Gerät kommen und das ist bereits schwierig genug einmal zu tun)\nE: 0 (Man braucht physischen zutritt zum Speichermedium und selbst dann sind die Daten verschlüsselt)\nA: 10 (betrifft immernoch alle User)",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 115,
+                  "score": "15"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 15,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
+            }
           }
         ],
         "version": "2.5.0",
@@ -2852,7 +3022,7 @@
     ],
     "reviewer": "Georg Neugebauer",
     "diagramTop": 10,
-    "threatTop": 113
+    "threatTop": 115
   },
   "version": "2.5.0"
 }
