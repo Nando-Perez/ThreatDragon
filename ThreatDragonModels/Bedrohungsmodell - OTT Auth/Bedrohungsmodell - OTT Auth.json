@@ -1636,7 +1636,8 @@
             "shape": "flow",
             "attrs": {
               "line": {
-                "stroke": "#333333",
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "targetMarker": {
                   "name": "block"
                 },
@@ -1657,12 +1658,31 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isBidirectional": false,
               "isEncrypted": false,
               "isPublicNetwork": false,
               "protocol": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "64b34908-35e4-498f-bc2a-6abd4fa30a8d",
+                  "title": "Übertragung der Daten für Telefonnummerauflösung sind unverschlüsselt",
+                  "status": "Open",
+                  "severity": "TBD",
+                  "type": "Information disclosure",
+                  "description": "Da der externe Dienst komplett auf Verschlüsselung bei der Übertragung von der Telefonnummer verzichtet könnte ein Angreifer entweder bei der Datenübertragung selbst oder wenn er im System ist auf diese Daten zugreifen bzw. diese abfangen und einfach mitlesen.\n\nCAPEC-94: Adversary in the Middle (AiTM):\nAn adversary targets the communication between two components (typically client and server), in order to alter or obtain data from transactions. A general approach entails the adversary placing themself within the communication channel between the two components.\n\nMITRE T1040 – Network Sniffing\nAdversaries may passively sniff network traffic to capture information about an environment, including authentication material passed over the network. ...\n",
+                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 113,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "informationDisclosure": 3,
+                "denialOfService": 0
+              }
             },
             "labels": [
               "Telefonanbieter Auflösung"
@@ -1681,8 +1701,16 @@
                 "y": 460
               },
               {
+                "x": 460,
+                "y": 460
+              },
+              {
                 "x": 400,
                 "y": 420
+              },
+              {
+                "x": 370,
+                "y": 360
               }
             ]
           },
@@ -2336,8 +2364,8 @@
                 "text": "Allsecure Mobile \nPhone OTT\nService"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -2434,12 +2462,34 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "1e10b1fe-bca9-430a-a403-3a0288f18d1f",
+                  "title": "Übertragung der Daten für Telefonnummerauflösung sind unverschlüsselt",
+                  "status": "Open",
+                  "severity": "TBD",
+                  "type": "Information disclosure",
+                  "description": "Da der externe Dienst komplett auf Verschlüsselung bei der Übertragung von der Telefonnummer verzichtet könnte ein Angreifer entweder bei der Datenübertragung selbst oder wenn er im System ist auf diese Daten zugreifen bzw. diese abfangen und einfach mitlesen.\n\nCAPEC-94: Adversary in the Middle (AiTM):\nAn adversary targets the communication between two components (typically client and server), in order to alter or obtain data from transactions. A general approach entails the adversary placing themself within the communication channel between the two components.\n\nMITRE T1040 – Network Sniffing\nAdversaries may passively sniff network traffic to capture information about an environment, including authentication material passed over the network. ...\n",
+                  "mitigation": "Provide remediation for this threat or a reason if status is N/A",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 112,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 1,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
             }
           },
           {
@@ -2809,7 +2859,7 @@
     ],
     "reviewer": "Georg Neugebauer",
     "diagramTop": 10,
-    "threatTop": 110
+    "threatTop": 113
   },
   "version": "2.5.0"
 }
