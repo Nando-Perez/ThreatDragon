@@ -267,7 +267,7 @@
                   "status": "Open",
                   "severity": "TBD",
                   "type": "Tampering",
-                  "description": "Provide a description for this threat",
+                  "description": "Da alle Daten der App auf der SD Karte gespeichert werden können diese leicht manipuliert werden. Da sie am ehesten nicht verschlüsselt auf de SD Karte gespeichert werden und diese SD Karten können oft auch aus Geräten entfernt und isoliert analysiert oder manipuliert werden. Grund dafür ist auch damit andere Anwendungen auf diese Daten zugreifen können.\n\nCAPEC-639: Probe System Files\nAn adversary obtains unauthorized information due to improperly protected files. If an application stores sensitive information in a file that is not protected by proper access control, then an adversary can access the file and search for sensitive information.\n\nMITRE T1409 Stored Application Data\nAdversaries may try to access and collect application data resident on the device. Adversaries often target popular applications, such as Facebook, WeChat, and Gmail.[1]\n\nDue to mobile OS sandboxing, this technique is only possible in three scenarios:\n\nAn application stores files in unprotected external storage\nAn application stores files in its internal storage directory with insecure permissions (e.g. 777)\nThe adversary gains root permissions on the device",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -281,7 +281,7 @@
               "handlesGoodsOrServices": null,
               "threatFrequency": {
                 "spoofing": 1,
-                "tampering": 1,
+                "tampering": 3,
                 "repudiation": 0,
                 "informationDisclosure": 1,
                 "denialOfService": 0,
@@ -407,8 +407,8 @@
                   "title": "Authentifizierungssession ist ein Jahr gültig (wohl für Usability)",
                   "status": "Open",
                   "severity": "TBD",
-                  "type": "Tampering",
-                  "description": "Provide a description for this threat",
+                  "type": "Elevation of privilege",
+                  "description": "Da die Authentifizierungssession ein Jahr lang gültig ist könnten Angreifer wenn sie an das PW des Users kommen sich als diesen ausgeben. Damit hätte der Angreifer Rechte bzw. Privilegien die er normalerweise nicht hätte. Ggf. auch wenn dies ein Account mit hohen rechten ist.\n\nCAPEC-560: Use of Known Domain Credentials\nAn adversary guesses or obtains (i.e. steals or purchases) legitimate credentials (e.g. userID/password) to achieve authentication and to perform authorized actions under the guise of an authenticated user or service.\n\nMITRE T1078 – Valid Accounts\nAdversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation ...",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -421,7 +421,7 @@
                   "status": "Open",
                   "severity": "TBD",
                   "type": "Denial of service",
-                  "description": "Provide a description for this threat",
+                  "description": "Aufgrund von fehlender Redundanz des Servers. Kann der Angreifer mir mehrere Anfragen diesen überlasten und da es keinerlei Lastverteilung gibt würde bei einem Absturz dieses Dienstes auch zum Absturz des gesamten Systems kommen.\n\nCAPEC-125: Flooding\nAn adversary consumes the resources of a target by rapidly engaging in a large number of interactions with the target. This type of attack generally exposes a weakness in rate limiting or flow. When successful this attack prevents legitimate users from accessing the service and can cause the target to crash. This attack differs from resource depletion through leaks or allocations in that the latter attacks do not rely on the volume of requests made to the target but instead focus on manipulation of the target's operations. The key factor in a flooding attack is the number of requests the adversary can make in a given period of time. The greater this number, the more likely an attack is to succeed against a given target.\n\nMITRE  T1499.003 – Endpoint Denial of Service: Application Exhaustion Flood\nAdversaries may target resource intensive features of applications to cause a denial of service (DoS), denying availability to those applications. For example, specific features in web applications may be highly resource intensive. Repeated requests to those features may be able to exhaust system resources and deny access to the application or the server itself.\n",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -439,11 +439,18 @@
                 "tampering": 1,
                 "repudiation": 0,
                 "informationDisclosure": 0,
-                "denialOfService": 1,
-                "elevationOfPrivilege": 0
+                "denialOfService": 3,
+                "elevationOfPrivilege": 1
               },
               "handlesCardPayment": null,
               "handlesGoodsOrServices": null
+            },
+            "tools": {
+              "items": [
+                "boundary",
+                "button-remove"
+              ],
+              "name": null
             }
           },
           {
@@ -561,11 +568,11 @@
               "threats": [
                 {
                   "id": "ba0a8a1b-3a40-486a-83a4-37d2435a1e2c",
-                  "title": "Symmetrischer Schlüssel wird unverschlüsselt auf dem Server gespeichert",
+                  "title": "Symmetrischer Schlüssel wird unverschlüsselt auf dem Server gespeichert & ",
                   "status": "Open",
                   "severity": "TBD",
-                  "type": "Elevation of privilege",
-                  "description": "Provide a description for this threat",
+                  "type": "Spoofing",
+                  "description": "Da der Symmetrische Schlüssel unverschlüsselt auf dem Server gespeichert wird. Können sich Angreifer, falls sie diesen in die Hände bekommen als den Server ausgeben und ggf. Dinge ausführen, die sonst nur der Server durchführen dürfte/könnte.\n\nCAPEC-474 – Signature Spoofing by Key Theft\nAn attacker obtains an authoritative or reputable signer's private signature key by theft and then uses this key to forge signatures from the original signer to mislead a victim into performing actions that benefit the attacker.\n\nMITRE T1552.004 – Unsecured Credentials: Private Keys\nAdversaries may search for private key certificate files on compromised systems for insecurely stored credentials ...",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -575,12 +582,12 @@
               ],
               "hasOpenThreats": true,
               "threatFrequency": {
-                "spoofing": 1,
+                "spoofing": 2,
                 "tampering": 0,
                 "repudiation": 0,
                 "informationDisclosure": 1,
                 "denialOfService": 0,
-                "elevationOfPrivilege": 1
+                "elevationOfPrivilege": 2
               }
             }
           },
@@ -2052,7 +2059,7 @@
                   "status": "Open",
                   "severity": "TBD",
                   "type": "Repudiation",
-                  "description": "Provide a description for this threat",
+                  "description": "Aufgrund dessen, dass der Authentifizierungsserver so viele Daten wie möglich speichern soll, werden diese in der Log-DB gespeichert. Das kann dazu führen, wenn ein Angreifer seine Spuren verwischen will das er einfach mehrere Anfragen erstellt und somit dafür sorgt, dass seine auffällige Anfrage aus der Log-DB verschwindet.\n\nCAPEC-268 : Audit Log Manipulation\nThe attacker injects, manipulates, deletes, or forges malicious log entries into the log file, in an attempt to mislead an audit of the log file or cover tracks of an attack. Due to either insufficient access controls of the log files or the logging mechanism, the attacker is able to perform such actions.\n\nMITRE T1565.001 Data Manipulation: Stored Data Manipulation\nAdversaries may insert, delete, or manipulate data at rest in order to influence external outcomes or hide activity, thus threatening the integrity of the data.[1][2] By manipulating stored data, adversaries may attempt to affect a business process, organizational understanding, and decision making.\n\nStored data could include a variety of file formats, such as Office files, databases, stored emails, and custom file formats. The type of modification and the impact it will have depends on the type of data as well as the goals and objectives of the adversary. For complex systems, an adversary would likely need special expertise and possibly access to specialized software related to the system that would typically be gained through a prolonged information gathering campaign in order to have the desired impact.",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -2062,7 +2069,7 @@
               ],
               "threatFrequency": {
                 "tampering": 1,
-                "repudiation": 1,
+                "repudiation": 3,
                 "informationDisclosure": 0,
                 "denialOfService": 0
               }
@@ -2802,7 +2809,7 @@
     ],
     "reviewer": "Georg Neugebauer",
     "diagramTop": 10,
-    "threatTop": 109
+    "threatTop": 110
   },
   "version": "2.5.0"
 }
