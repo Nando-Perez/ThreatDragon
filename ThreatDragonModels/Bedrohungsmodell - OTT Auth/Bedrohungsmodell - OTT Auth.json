@@ -265,14 +265,14 @@
                   "id": "3a212e6d-079c-46d8-a331-d093f50ccbd2",
                   "title": "Speicherung aller App Daten auf der SD Karte",
                   "status": "Open",
-                  "severity": "TBD",
+                  "severity": "Medium",
                   "type": "Tampering",
-                  "description": "Da alle Daten der App auf der SD Karte gespeichert werden können diese leicht manipuliert werden. Da sie am ehesten nicht verschlüsselt auf de SD Karte gespeichert werden und diese SD Karten können oft auch aus Geräten entfernt und isoliert analysiert oder manipuliert werden. Grund dafür ist auch damit andere Anwendungen auf diese Daten zugreifen können.\n\nCAPEC-639: Probe System Files\nAn adversary obtains unauthorized information due to improperly protected files. If an application stores sensitive information in a file that is not protected by proper access control, then an adversary can access the file and search for sensitive information.\n\nMITRE T1409 Stored Application Data\nAdversaries may try to access and collect application data resident on the device. Adversaries often target popular applications, such as Facebook, WeChat, and Gmail.[1]\n\nDue to mobile OS sandboxing, this technique is only possible in three scenarios:\n\nAn application stores files in unprotected external storage\nAn application stores files in its internal storage directory with insecure permissions (e.g. 777)\nThe adversary gains root permissions on the device",
+                  "description": "Da alle Daten der App auf der SD Karte gespeichert werden können diese leicht manipuliert werden. Da sie am ehesten nicht verschlüsselt auf de SD Karte gespeichert werden und diese SD Karten können oft auch aus Geräten entfernt und isoliert analysiert oder manipuliert werden. Grund dafür ist auch damit andere Anwendungen auf diese Daten zugreifen können.\n\nCAPEC-639: Probe System Files\nAn adversary obtains unauthorized information due to improperly protected files. If an application stores sensitive information in a file that is not protected by proper access control, then an adversary can access the file and search for sensitive information.\n\nMITRE T1409 Stored Application Data\nAdversaries may try to access and collect application data resident on the device. Adversaries often target popular applications, such as Facebook, WeChat, and Gmail.[1]\n\nDue to mobile OS sandboxing, this technique is only possible in three scenarios:\n\nAn application stores files in unprotected external storage\nAn application stores files in its internal storage directory with insecure permissions (e.g. 777)\nThe adversary gains root permissions on the device\n\n\nDREA:\nD: 10 (Da alle Daten ausnahmslos auf der SD Karte gespeichert sind kann dies massiven Schaden sein)\nR: 2.5 (Man braucht physischen Zugang zu dem Gerät, daher vermutlich schwer wiederholbar)\nE:  5 (Man braucht Zugriff auf die Daten der SD Karte am ehesten durch Zugriff auf das Handy)\nA: 10 (Alle User die die App verwenden \nGesamt: 27.5",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 108,
-                  "score": ""
+                  "score": "27.5"
                 }
               ],
               "hasOpenThreats": true,
@@ -281,10 +281,10 @@
               "handlesGoodsOrServices": null,
               "threatFrequency": {
                 "spoofing": 1,
-                "tampering": 3,
+                "tampering": 7,
                 "repudiation": 0,
                 "informationDisclosure": 1,
-                "denialOfService": 0,
+                "denialOfService": 1,
                 "elevationOfPrivilege": 0
               }
             }
@@ -406,9 +406,9 @@
                   "id": "bd51add6-8150-4d47-ab52-9495ca87c485",
                   "title": "Authentifizierungssession ist ein Jahr gültig (wohl für Usability)",
                   "status": "Open",
-                  "severity": "TBD",
+                  "severity": "High",
                   "type": "Elevation of privilege",
-                  "description": "Da die Authentifizierungssession ein Jahr lang gültig ist könnten Angreifer wenn sie an das PW des Users kommen sich als diesen ausgeben. Damit hätte der Angreifer Rechte bzw. Privilegien die er normalerweise nicht hätte. Ggf. auch wenn dies ein Account mit hohen rechten ist.\n\nCAPEC-560: Use of Known Domain Credentials\nAn adversary guesses or obtains (i.e. steals or purchases) legitimate credentials (e.g. userID/password) to achieve authentication and to perform authorized actions under the guise of an authenticated user or service.\n\nMITRE T1078 – Valid Accounts\nAdversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation ...",
+                  "description": "Da die Authentifizierungssession ein Jahr lang gültig ist könnten Angreifer wenn sie an das PW des Users kommen sich als diesen ausgeben. Damit hätte der Angreifer Rechte bzw. Privilegien die er normalerweise nicht hätte. Ggf. auch wenn dies ein Account mit hohen rechten ist.\n\nCAPEC-560: Use of Known Domain Credentials\nAn adversary guesses or obtains (i.e. steals or purchases) legitimate credentials (e.g. userID/password) to achieve authentication and to perform authorized actions under the guise of an authenticated user or service.\n\nMITRE T1078 – Valid Accounts\nAdversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation ...\n\n\nDREA:\nD: 10 (Sobald der Angreifer Zugang zum Account hat kann er alles mit diesem machen)\nR: 7 (Sobald der Angreifer das PW des Users hat kann er den Angriff beliebig oft wiederholen, allerdings würden die meisten User ihr PW bei Auffälligkeiten ändern)\nE: 4.5 (Angreifer muss an das PW des Users kommen & auch hoffen das dieser den zweiten Faktor bereits erfüllt hat)\nA: 9 (Es könnten in der Theorie alle User betroffen sein, an dessen PW der Angreifer kommt)\nGesamt: 30.5",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -421,7 +421,7 @@
                   "status": "Open",
                   "severity": "TBD",
                   "type": "Denial of service",
-                  "description": "Aufgrund von fehlender Redundanz des Servers. Kann der Angreifer mir mehrere Anfragen diesen überlasten und da es keinerlei Lastverteilung gibt würde bei einem Absturz dieses Dienstes auch zum Absturz des gesamten Systems kommen.\n\nCAPEC-125: Flooding\nAn adversary consumes the resources of a target by rapidly engaging in a large number of interactions with the target. This type of attack generally exposes a weakness in rate limiting or flow. When successful this attack prevents legitimate users from accessing the service and can cause the target to crash. This attack differs from resource depletion through leaks or allocations in that the latter attacks do not rely on the volume of requests made to the target but instead focus on manipulation of the target's operations. The key factor in a flooding attack is the number of requests the adversary can make in a given period of time. The greater this number, the more likely an attack is to succeed against a given target.\n\nMITRE  T1499.003 – Endpoint Denial of Service: Application Exhaustion Flood\nAdversaries may target resource intensive features of applications to cause a denial of service (DoS), denying availability to those applications. For example, specific features in web applications may be highly resource intensive. Repeated requests to those features may be able to exhaust system resources and deny access to the application or the server itself.\n",
+                  "description": "Aufgrund von fehlender Redundanz des Servers. Kann der Angreifer mir mehrere Anfragen diesen überlasten und da es keinerlei Lastverteilung gibt würde bei einem Absturz dieses Dienstes auch zum Absturz des gesamten Systems kommen.\n\nCAPEC-125: Flooding\nAn adversary consumes the resources of a target by rapidly engaging in a large number of interactions with the target. This type of attack generally exposes a weakness in rate limiting or flow. When successful this attack prevents legitimate users from accessing the service and can cause the target to crash. This attack differs from resource depletion through leaks or allocations in that the latter attacks do not rely on the volume of requests made to the target but instead focus on manipulation of the target's operations. The key factor in a flooding attack is the number of requests the adversary can make in a given period of time. The greater this number, the more likely an attack is to succeed against a given target.\n\nMITRE  T1499.003 – Endpoint Denial of Service: Application Exhaustion Flood\nAdversaries may target resource intensive features of applications to cause a denial of service (DoS), denying availability to those applications. For example, specific features in web applications may be highly resource intensive. Repeated requests to those features may be able to exhaust system resources and deny access to the application or the server itself.\n\n\nDREA:\nD:\nR:\nE:\nA:",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -439,18 +439,11 @@
                 "tampering": 1,
                 "repudiation": 0,
                 "informationDisclosure": 0,
-                "denialOfService": 3,
-                "elevationOfPrivilege": 1
+                "denialOfService": 5,
+                "elevationOfPrivilege": 5
               },
               "handlesCardPayment": null,
               "handlesGoodsOrServices": null
-            },
-            "tools": {
-              "items": [
-                "boundary",
-                "button-remove"
-              ],
-              "name": null
             }
           },
           {
@@ -572,7 +565,7 @@
                   "status": "Open",
                   "severity": "TBD",
                   "type": "Spoofing",
-                  "description": "Da der Symmetrische Schlüssel unverschlüsselt auf dem Server gespeichert wird. Können sich Angreifer, falls sie diesen in die Hände bekommen als den Server ausgeben und ggf. Dinge ausführen, die sonst nur der Server durchführen dürfte/könnte.\n\nCAPEC-474 – Signature Spoofing by Key Theft\nAn attacker obtains an authoritative or reputable signer's private signature key by theft and then uses this key to forge signatures from the original signer to mislead a victim into performing actions that benefit the attacker.\n\nMITRE T1552.004 – Unsecured Credentials: Private Keys\nAdversaries may search for private key certificate files on compromised systems for insecurely stored credentials ...",
+                  "description": "Da der Symmetrische Schlüssel unverschlüsselt auf dem Server gespeichert wird. Können sich Angreifer, falls sie diesen in die Hände bekommen als den Server ausgeben und ggf. Dinge ausführen, die sonst nur der Server durchführen dürfte/könnte.\n\nCAPEC-474 – Signature Spoofing by Key Theft\nAn attacker obtains an authoritative or reputable signer's private signature key by theft and then uses this key to forge signatures from the original signer to mislead a victim into performing actions that benefit the attacker.\n\nMITRE T1552.004 – Unsecured Credentials: Private Keys\nAdversaries may search for private key certificate files on compromised systems for insecurely stored credentials ...\n\n\nDREA:\nD:\nR:\nE:\nA:",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -582,7 +575,7 @@
               ],
               "hasOpenThreats": true,
               "threatFrequency": {
-                "spoofing": 2,
+                "spoofing": 3,
                 "tampering": 0,
                 "repudiation": 0,
                 "informationDisclosure": 1,
@@ -1670,7 +1663,7 @@
                   "status": "Open",
                   "severity": "TBD",
                   "type": "Information disclosure",
-                  "description": "Da der externe Dienst komplett auf Verschlüsselung bei der Übertragung von der Telefonnummer verzichtet könnte ein Angreifer entweder bei der Datenübertragung selbst oder wenn er im System ist auf diese Daten zugreifen bzw. diese abfangen und einfach mitlesen.\n\nCAPEC-94: Adversary in the Middle (AiTM):\nAn adversary targets the communication between two components (typically client and server), in order to alter or obtain data from transactions. A general approach entails the adversary placing themself within the communication channel between the two components.\n\nMITRE T1040 – Network Sniffing\nAdversaries may passively sniff network traffic to capture information about an environment, including authentication material passed over the network. ...\n",
+                  "description": "Da der externe Dienst komplett auf Verschlüsselung bei der Übertragung von der Telefonnummer verzichtet könnte ein Angreifer entweder bei der Datenübertragung selbst oder wenn er im System ist auf diese Daten zugreifen bzw. diese abfangen und einfach mitlesen.\n\nCAPEC-94: Adversary in the Middle (AiTM):\nAn adversary targets the communication between two components (typically client and server), in order to alter or obtain data from transactions. A general approach entails the adversary placing themself within the communication channel between the two components.\n\nMITRE T1040 – Network Sniffing\nAdversaries may passively sniff network traffic to capture information about an environment, including authentication material passed over the network. ...\n\n\nDREA:\nD:\nR:\nE:\nA:",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -1680,7 +1673,7 @@
               ],
               "threatFrequency": {
                 "tampering": 0,
-                "informationDisclosure": 3,
+                "informationDisclosure": 4,
                 "denialOfService": 0
               }
             },
@@ -2085,9 +2078,9 @@
                   "id": "44c14f29-7f65-4208-886a-632005b85f74",
                   "title": "Gefahr des Log Overflows aufgrund von mangelnder Redundanz",
                   "status": "Open",
-                  "severity": "TBD",
+                  "severity": "Medium",
                   "type": "Repudiation",
-                  "description": "Aufgrund dessen, dass der Authentifizierungsserver so viele Daten wie möglich speichern soll, werden diese in der Log-DB gespeichert. Das kann dazu führen, wenn ein Angreifer seine Spuren verwischen will das er einfach mehrere Anfragen erstellt und somit dafür sorgt, dass seine auffällige Anfrage aus der Log-DB verschwindet.\n\nCAPEC-268 : Audit Log Manipulation\nThe attacker injects, manipulates, deletes, or forges malicious log entries into the log file, in an attempt to mislead an audit of the log file or cover tracks of an attack. Due to either insufficient access controls of the log files or the logging mechanism, the attacker is able to perform such actions.\n\nMITRE T1565.001 Data Manipulation: Stored Data Manipulation\nAdversaries may insert, delete, or manipulate data at rest in order to influence external outcomes or hide activity, thus threatening the integrity of the data.[1][2] By manipulating stored data, adversaries may attempt to affect a business process, organizational understanding, and decision making.\n\nStored data could include a variety of file formats, such as Office files, databases, stored emails, and custom file formats. The type of modification and the impact it will have depends on the type of data as well as the goals and objectives of the adversary. For complex systems, an adversary would likely need special expertise and possibly access to specialized software related to the system that would typically be gained through a prolonged information gathering campaign in order to have the desired impact.",
+                  "description": "Aufgrund dessen, dass der Authentifizierungsserver so viele Daten wie möglich speichern soll, werden diese in der Log-DB gespeichert. Das kann dazu führen, wenn ein Angreifer seine Spuren verwischen will das er einfach mehrere Anfragen erstellt und somit dafür sorgt, dass seine auffällige Anfrage aus der Log-DB verschwindet.\n\nCAPEC-268 : Audit Log Manipulation\nThe attacker injects, manipulates, deletes, or forges malicious log entries into the log file, in an attempt to mislead an audit of the log file or cover tracks of an attack. Due to either insufficient access controls of the log files or the logging mechanism, the attacker is able to perform such actions.\n\nMITRE T1565.001 Data Manipulation: Stored Data Manipulation\nAdversaries may insert, delete, or manipulate data at rest in order to influence external outcomes or hide activity, thus threatening the integrity of the data.[1][2] By manipulating stored data, adversaries may attempt to affect a business process, organizational understanding, and decision making.\n\nStored data could include a variety of file formats, such as Office files, databases, stored emails, and custom file formats. The type of modification and the impact it will have depends on the type of data as well as the goals and objectives of the adversary. For complex systems, an adversary would likely need special expertise and possibly access to specialized software related to the system that would typically be gained through a prolonged information gathering campaign in order to have the desired impact.\n\nDREA:\nD: 2.5 (Grundsätzlich entsteht für das Unternehmen kein großer Schaden außer das nicht nachvollziehbar sein könnte wer potenziell versucht hat anzugreifen)\nR: 10 (Der Angriff kann ohne weiteres wiederholt ausgeführt werden, falls der Angreifer möchte das die Daten aus den Logs verschwinden)\nE: 5 (Der Angreifer benötigt am ehesten ein Bot Netz um eine Vielzahl an Anfragen zu generieren)\nA: 0 (Kein User wäre betroffen, wenn die Logs manipuliert wären)\nGesamt: 17.5",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -2097,7 +2090,7 @@
               ],
               "threatFrequency": {
                 "tampering": 1,
-                "repudiation": 3,
+                "repudiation": 8,
                 "informationDisclosure": 0,
                 "denialOfService": 0
               }
@@ -2474,7 +2467,7 @@
                   "status": "Open",
                   "severity": "TBD",
                   "type": "Information disclosure",
-                  "description": "Da der externe Dienst komplett auf Verschlüsselung bei der Übertragung von der Telefonnummer verzichtet könnte ein Angreifer entweder bei der Datenübertragung selbst oder wenn er im System ist auf diese Daten zugreifen bzw. diese abfangen und einfach mitlesen.\n\nCAPEC-94: Adversary in the Middle (AiTM):\nAn adversary targets the communication between two components (typically client and server), in order to alter or obtain data from transactions. A general approach entails the adversary placing themself within the communication channel between the two components.\n\nMITRE T1040 – Network Sniffing\nAdversaries may passively sniff network traffic to capture information about an environment, including authentication material passed over the network. ...\n",
+                  "description": "Da der externe Dienst komplett auf Verschlüsselung bei der Übertragung von der Telefonnummer verzichtet könnte ein Angreifer entweder bei der Datenübertragung selbst oder wenn er im System ist auf diese Daten zugreifen bzw. diese abfangen und einfach mitlesen.\n\nCAPEC-94: Adversary in the Middle (AiTM):\nAn adversary targets the communication between two components (typically client and server), in order to alter or obtain data from transactions. A general approach entails the adversary placing themself within the communication channel between the two components.\n\nMITRE T1040 – Network Sniffing\nAdversaries may passively sniff network traffic to capture information about an environment, including authentication material passed over the network. ...\n\n\nDREA:\nD:\nR:\nE:\nA:",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -2486,7 +2479,7 @@
                 "spoofing": 0,
                 "tampering": 0,
                 "repudiation": 0,
-                "informationDisclosure": 1,
+                "informationDisclosure": 2,
                 "denialOfService": 0,
                 "elevationOfPrivilege": 0
               }
