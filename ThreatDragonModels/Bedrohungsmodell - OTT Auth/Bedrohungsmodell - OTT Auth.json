@@ -284,7 +284,7 @@
                 "tampering": 7,
                 "repudiation": 0,
                 "informationDisclosure": 1,
-                "denialOfService": 1,
+                "denialOfService": 3,
                 "elevationOfPrivilege": 0
               }
             }
@@ -419,9 +419,9 @@
                   "id": "2c4267fe-3a2a-4686-9e9f-4dcfc9a8cf6f",
                   "title": "Fehlende Redundanz des 2-Faktor Authentifizierungsdienst",
                   "status": "Open",
-                  "severity": "TBD",
+                  "severity": "High",
                   "type": "Denial of service",
-                  "description": "Aufgrund von fehlender Redundanz des Servers. Kann der Angreifer mir mehrere Anfragen diesen überlasten und da es keinerlei Lastverteilung gibt würde bei einem Absturz dieses Dienstes auch zum Absturz des gesamten Systems kommen.\n\nCAPEC-125: Flooding\nAn adversary consumes the resources of a target by rapidly engaging in a large number of interactions with the target. This type of attack generally exposes a weakness in rate limiting or flow. When successful this attack prevents legitimate users from accessing the service and can cause the target to crash. This attack differs from resource depletion through leaks or allocations in that the latter attacks do not rely on the volume of requests made to the target but instead focus on manipulation of the target's operations. The key factor in a flooding attack is the number of requests the adversary can make in a given period of time. The greater this number, the more likely an attack is to succeed against a given target.\n\nMITRE  T1499.003 – Endpoint Denial of Service: Application Exhaustion Flood\nAdversaries may target resource intensive features of applications to cause a denial of service (DoS), denying availability to those applications. For example, specific features in web applications may be highly resource intensive. Repeated requests to those features may be able to exhaust system resources and deny access to the application or the server itself.\n\n\nDREA:\nD:\nR:\nE:\nA:",
+                  "description": "Aufgrund von fehlender Redundanz des Servers. Kann der Angreifer mir mehrere Anfragen diesen überlasten und da es keinerlei Lastverteilung gibt würde bei einem Absturz dieses Dienstes auch zum Absturz des gesamten Systems kommen.\n\nCAPEC-125: Flooding\nAn adversary consumes the resources of a target by rapidly engaging in a large number of interactions with the target. This type of attack generally exposes a weakness in rate limiting or flow. When successful this attack prevents legitimate users from accessing the service and can cause the target to crash. This attack differs from resource depletion through leaks or allocations in that the latter attacks do not rely on the volume of requests made to the target but instead focus on manipulation of the target's operations. The key factor in a flooding attack is the number of requests the adversary can make in a given period of time. The greater this number, the more likely an attack is to succeed against a given target.\n\nMITRE  T1499.003 – Endpoint Denial of Service: Application Exhaustion Flood\nAdversaries may target resource intensive features of applications to cause a denial of service (DoS), denying availability to those applications. For example, specific features in web applications may be highly resource intensive. Repeated requests to those features may be able to exhaust system resources and deny access to the application or the server itself.\n\n\nDREA:\nD: 10 (System kann komplett ausfallen)\nR: 10 (Angriff kann immer ausgeführt werden wenn das System läuft - wenn es einmal ausgefallen wäre der Wert auf 0)\nE: 6 ( Benötigt Botnetz und technisches Knowhow)\nA: 10 (Würde alle User betreffen)\nGesamt:36",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -439,11 +439,18 @@
                 "tampering": 1,
                 "repudiation": 0,
                 "informationDisclosure": 0,
-                "denialOfService": 5,
-                "elevationOfPrivilege": 5
+                "denialOfService": 10,
+                "elevationOfPrivilege": 8
               },
               "handlesCardPayment": null,
               "handlesGoodsOrServices": null
+            },
+            "tools": {
+              "items": [
+                "boundary",
+                "button-remove"
+              ],
+              "name": null
             }
           },
           {
@@ -565,7 +572,7 @@
                   "status": "Open",
                   "severity": "TBD",
                   "type": "Spoofing",
-                  "description": "Da der Symmetrische Schlüssel unverschlüsselt auf dem Server gespeichert wird. Können sich Angreifer, falls sie diesen in die Hände bekommen als den Server ausgeben und ggf. Dinge ausführen, die sonst nur der Server durchführen dürfte/könnte.\n\nCAPEC-474 – Signature Spoofing by Key Theft\nAn attacker obtains an authoritative or reputable signer's private signature key by theft and then uses this key to forge signatures from the original signer to mislead a victim into performing actions that benefit the attacker.\n\nMITRE T1552.004 – Unsecured Credentials: Private Keys\nAdversaries may search for private key certificate files on compromised systems for insecurely stored credentials ...\n\n\nDREA:\nD:\nR:\nE:\nA:",
+                  "description": "Da der Symmetrische Schlüssel unverschlüsselt auf dem Server gespeichert wird. Können sich Angreifer, falls sie diesen in die Hände bekommen als den Server ausgeben und ggf. Dinge ausführen, die sonst nur der Server durchführen dürfte/könnte.\n\nCAPEC-474 – Signature Spoofing by Key Theft\nAn attacker obtains an authoritative or reputable signer's private signature key by theft and then uses this key to forge signatures from the original signer to mislead a victim into performing actions that benefit the attacker.\n\nMITRE T1552.004 – Unsecured Credentials: Private Keys\nAdversaries may search for private key certificate files on compromised systems for insecurely stored credentials ...\n\n\nDREA:\nD:\nR:\nE:\nA:\nGesamt:",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -575,7 +582,7 @@
               ],
               "hasOpenThreats": true,
               "threatFrequency": {
-                "spoofing": 3,
+                "spoofing": 4,
                 "tampering": 0,
                 "repudiation": 0,
                 "informationDisclosure": 1,
@@ -1663,7 +1670,7 @@
                   "status": "Open",
                   "severity": "TBD",
                   "type": "Information disclosure",
-                  "description": "Da der externe Dienst komplett auf Verschlüsselung bei der Übertragung von der Telefonnummer verzichtet könnte ein Angreifer entweder bei der Datenübertragung selbst oder wenn er im System ist auf diese Daten zugreifen bzw. diese abfangen und einfach mitlesen.\n\nCAPEC-94: Adversary in the Middle (AiTM):\nAn adversary targets the communication between two components (typically client and server), in order to alter or obtain data from transactions. A general approach entails the adversary placing themself within the communication channel between the two components.\n\nMITRE T1040 – Network Sniffing\nAdversaries may passively sniff network traffic to capture information about an environment, including authentication material passed over the network. ...\n\n\nDREA:\nD:\nR:\nE:\nA:",
+                  "description": "Da der externe Dienst komplett auf Verschlüsselung bei der Übertragung von der Telefonnummer verzichtet könnte ein Angreifer entweder bei der Datenübertragung selbst oder wenn er im System ist auf diese Daten zugreifen bzw. diese abfangen und einfach mitlesen.\n\nCAPEC-94: Adversary in the Middle (AiTM):\nAn adversary targets the communication between two components (typically client and server), in order to alter or obtain data from transactions. A general approach entails the adversary placing themself within the communication channel between the two components.\n\nMITRE T1040 – Network Sniffing\nAdversaries may passively sniff network traffic to capture information about an environment, including authentication material passed over the network. ...\n\n\nDREA:\nD:\nR:\nE:\nA:\nGesamt",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -1673,7 +1680,7 @@
               ],
               "threatFrequency": {
                 "tampering": 0,
-                "informationDisclosure": 4,
+                "informationDisclosure": 5,
                 "denialOfService": 0
               }
             },
@@ -2467,7 +2474,7 @@
                   "status": "Open",
                   "severity": "TBD",
                   "type": "Information disclosure",
-                  "description": "Da der externe Dienst komplett auf Verschlüsselung bei der Übertragung von der Telefonnummer verzichtet könnte ein Angreifer entweder bei der Datenübertragung selbst oder wenn er im System ist auf diese Daten zugreifen bzw. diese abfangen und einfach mitlesen.\n\nCAPEC-94: Adversary in the Middle (AiTM):\nAn adversary targets the communication between two components (typically client and server), in order to alter or obtain data from transactions. A general approach entails the adversary placing themself within the communication channel between the two components.\n\nMITRE T1040 – Network Sniffing\nAdversaries may passively sniff network traffic to capture information about an environment, including authentication material passed over the network. ...\n\n\nDREA:\nD:\nR:\nE:\nA:",
+                  "description": "Da der externe Dienst komplett auf Verschlüsselung bei der Übertragung von der Telefonnummer verzichtet könnte ein Angreifer entweder bei der Datenübertragung selbst oder wenn er im System ist auf diese Daten zugreifen bzw. diese abfangen und einfach mitlesen.\n\nCAPEC-94: Adversary in the Middle (AiTM):\nAn adversary targets the communication between two components (typically client and server), in order to alter or obtain data from transactions. A general approach entails the adversary placing themself within the communication channel between the two components.\n\nMITRE T1040 – Network Sniffing\nAdversaries may passively sniff network traffic to capture information about an environment, including authentication material passed over the network. ...\n\n\nDREA:\nD:\nR:\nE:\nA:\nGesamt:",
                   "mitigation": "Provide remediation for this threat or a reason if status is N/A",
                   "modelType": "STRIDE",
                   "new": false,
@@ -2479,7 +2486,7 @@
                 "spoofing": 0,
                 "tampering": 0,
                 "repudiation": 0,
-                "informationDisclosure": 2,
+                "informationDisclosure": 3,
                 "denialOfService": 0,
                 "elevationOfPrivilege": 0
               }
