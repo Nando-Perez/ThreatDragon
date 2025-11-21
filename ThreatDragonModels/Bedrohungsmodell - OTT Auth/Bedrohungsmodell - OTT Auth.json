@@ -150,8 +150,8 @@
                 "text": "Login System -\nWebapp +\nMobile App"
               },
               "body": {
-                "stroke": "red",
-                "strokeWidth": 2.5,
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
                 "strokeDasharray": null
               }
             },
@@ -265,7 +265,7 @@
                 {
                   "id": "3a212e6d-079c-46d8-a331-d093f50ccbd2",
                   "title": "Speicherung aller App Daten auf der SD Karte",
-                  "status": "Open",
+                  "status": "Mitigated",
                   "severity": "Low",
                   "type": "Tampering",
                   "description": "Da alle Daten der App auf der SD Karte gespeichert werden können diese leicht manipuliert werden. Da sie am ehesten nicht verschlüsselt auf de SD Karte gespeichert werden und diese SD Karten können oft auch aus Geräten entfernt und isoliert analysiert oder manipuliert werden. Grund dafür ist auch damit andere Anwendungen auf diese Daten zugreifen können.\n\nCAPEC-639: Probe System Files\nAn adversary obtains unauthorized information due to improperly protected files. If an application stores sensitive information in a file that is not protected by proper access control, then an adversary can access the file and search for sensitive information.\n\nMITRE T1409 Stored Application Data\nAdversaries may try to access and collect application data resident on the device. Adversaries often target popular applications, such as Facebook, WeChat, and Gmail.[1]\n\nDue to mobile OS sandboxing, this technique is only possible in three scenarios:\n\nAn application stores files in unprotected external storage\nAn application stores files in its internal storage directory with insecure permissions (e.g. 777)\nThe adversary gains root permissions on the device\n\n\nDREA:\nD: 10 (Da alle Daten ausnahmslos auf der SD Karte gespeichert sind kann dies massiven Schaden sein)\nR: 2.5 (Man braucht physischen Zugang zu dem Gerät, daher vermutlich schwer wiederholbar)\nE:  5 (Man braucht Zugriff auf die Daten der SD Karte am ehesten durch Zugriff auf das Handy)\nA: 10 (Alle User die die App verwenden \nGesamt: 27.5",
@@ -276,13 +276,13 @@
                   "score": "14.5"
                 }
               ],
-              "hasOpenThreats": true,
+              "hasOpenThreats": false,
               "isWebApplication": null,
               "handlesCardPayment": null,
               "handlesGoodsOrServices": null,
               "threatFrequency": {
                 "spoofing": 1,
-                "tampering": 11,
+                "tampering": 12,
                 "repudiation": 0,
                 "informationDisclosure": 1,
                 "denialOfService": 5,
@@ -304,8 +304,8 @@
                 "text": "2-Faktor-Authe\nntifizierungsdi\nenst"
               },
               "body": {
-                "stroke": "red",
-                "strokeWidth": 2.5,
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
                 "strokeDasharray": null
               }
             },
@@ -406,7 +406,7 @@
                 {
                   "id": "bd51add6-8150-4d47-ab52-9495ca87c485",
                   "title": "Authentifizierungssession ist ein Jahr gültig (wohl für Usability)",
-                  "status": "Open",
+                  "status": "Mitigated",
                   "severity": "Low",
                   "type": "Elevation of privilege",
                   "description": "Da die Authentifizierungssession ein Jahr lang gültig ist könnten Angreifer wenn sie an das PW des Users kommen sich als diesen ausgeben. Damit hätte der Angreifer Rechte bzw. Privilegien die er normalerweise nicht hätte. Ggf. auch wenn dies ein Account mit hohen rechten ist.\n\nCAPEC-560: Use of Known Domain Credentials\nAn adversary guesses or obtains (i.e. steals or purchases) legitimate credentials (e.g. userID/password) to achieve authentication and to perform authorized actions under the guise of an authenticated user or service.\n\nMITRE T1078 – Valid Accounts\nAdversaries may obtain and abuse credentials of existing accounts as a means of gaining Initial Access, Persistence, Privilege Escalation ...\n\n\nDREA:\nD: 10 (Sobald der Angreifer Zugang zum Account hat kann er alles mit diesem machen)\nR: 7 (Sobald der Angreifer das PW des Users hat kann er den Angriff beliebig oft wiederholen, allerdings würden die meisten User ihr PW bei Auffälligkeiten ändern)\nE: 4.5 (Angreifer muss an das PW des Users kommen & auch hoffen das dieser den zweiten Faktor bereits erfüllt hat)\nA: 9 (Es könnten in der Theorie alle User betroffen sein, an dessen PW der Angreifer kommt)\nGesamt: 30.5",
@@ -419,7 +419,7 @@
                 {
                   "id": "2c4267fe-3a2a-4686-9e9f-4dcfc9a8cf6f",
                   "title": "Fehlende Redundanz des 2-Faktor Authentifizierungsdienst (Single Point of Failure)",
-                  "status": "Open",
+                  "status": "Mitigated",
                   "severity": "Medium",
                   "type": "Denial of service",
                   "description": "Aufgrund von fehlender Redundanz des Servers. Kann der Angreifer mir mehrere Anfragen diesen überlasten und da es keinerlei Lastverteilung gibt würde bei einem Absturz dieses Dienstes auch zum Absturz des gesamten Systems kommen.\n\nCAPEC-125: Flooding\nAn adversary consumes the resources of a target by rapidly engaging in a large number of interactions with the target. This type of attack generally exposes a weakness in rate limiting or flow. When successful this attack prevents legitimate users from accessing the service and can cause the target to crash. This attack differs from resource depletion through leaks or allocations in that the latter attacks do not rely on the volume of requests made to the target but instead focus on manipulation of the target's operations. The key factor in a flooding attack is the number of requests the adversary can make in a given period of time. The greater this number, the more likely an attack is to succeed against a given target.\n\nMITRE  T1499.003 – Endpoint Denial of Service: Application Exhaustion Flood\nAdversaries may target resource intensive features of applications to cause a denial of service (DoS), denying availability to those applications. For example, specific features in web applications may be highly resource intensive. Repeated requests to those features may be able to exhaust system resources and deny access to the application or the server itself.\n\n\nDREA:\nD: 10 (System kann komplett ausfallen)\nR: 10 (Angriff kann immer ausgeführt werden wenn das System läuft - wenn es einmal ausgefallen wäre der Wert auf 0)\nE: 6 ( Benötigt Botnetz und technisches Knowhow)\nA: 10 (Würde alle User betreffen)\nGesamt:36",
@@ -430,7 +430,7 @@
                   "score": "26"
                 }
               ],
-              "hasOpenThreats": true,
+              "hasOpenThreats": false,
               "isBidirectional": false,
               "protocol": "",
               "isEncrypted": false,
@@ -440,8 +440,8 @@
                 "tampering": 1,
                 "repudiation": 0,
                 "informationDisclosure": 0,
-                "denialOfService": 18,
-                "elevationOfPrivilege": 12
+                "denialOfService": 19,
+                "elevationOfPrivilege": 13
               },
               "handlesCardPayment": null,
               "handlesGoodsOrServices": null,
@@ -462,8 +462,8 @@
                 "text": "Telefonnummer-\nAPI-Gateway"
               },
               "body": {
-                "stroke": "red",
-                "strokeWidth": 2.5,
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
                 "strokeDasharray": null
               }
             },
@@ -564,7 +564,7 @@
                 {
                   "id": "ba0a8a1b-3a40-486a-83a4-37d2435a1e2c",
                   "title": "Symmetrischer Schlüssel wird unverschlüsselt auf dem Server gespeichert & ",
-                  "status": "Open",
+                  "status": "Mitigated",
                   "severity": "Medium",
                   "type": "Spoofing",
                   "description": "Da der Symmetrische Schlüssel unverschlüsselt auf dem Server gespeichert wird. Können sich Angreifer, falls sie diesen in die Hände bekommen als den Server ausgeben und ggf. Dinge ausführen, die sonst nur der Server durchführen dürfte/könnte.\n\nCAPEC-474 – Signature Spoofing by Key Theft\nAn attacker obtains an authoritative or reputable signer's private signature key by theft and then uses this key to forge signatures from the original signer to mislead a victim into performing actions that benefit the attacker.\n\nMITRE T1552.004 – Unsecured Credentials: Private Keys\nAdversaries may search for private key certificate files on compromised systems for insecurely stored credentials ...\n\n\nDREA:\nD: 10 (Mit dem symmetrischen Schlüssel kann sich der ANgreifer als der Server ausgeben und Daten abfangen und verändern)\nR: 10 (Der ANgriff kann ohne das der Angreifer auffällt beliebig oft durchgeführt werden)\nE: 8 (Angreifer muss an die Daten des Servers kommen um den Schlüssel zu erhalten - Server meist public erreichbar potenzielle Gefahr)\nA: 10 (Alle user des Dienstes wären betroffen, weil der Angreifer ja die Nummer ändern könnte ggf. auf seine um den 2. Faktor selbst zu bestätigen)\nGesamt: 38",
@@ -575,9 +575,9 @@
                   "score": "22"
                 }
               ],
-              "hasOpenThreats": true,
+              "hasOpenThreats": false,
               "threatFrequency": {
-                "spoofing": 12,
+                "spoofing": 13,
                 "tampering": 0,
                 "repudiation": 0,
                 "informationDisclosure": 1,
@@ -2009,13 +2009,11 @@
                 "text": "Log-DB"
               },
               "topLine": {
-                "stroke": "red",
-                "strokeWidth": 2.5,
+                "strokeWidth": 1.5,
                 "strokeDasharray": null
               },
               "bottomLine": {
-                "stroke": "red",
-                "strokeWidth": 2.5,
+                "strokeWidth": 1.5,
                 "strokeDasharray": null
               }
             },
@@ -2115,12 +2113,12 @@
               "storesCredentials": false,
               "isEncrypted": true,
               "isSigned": true,
-              "hasOpenThreats": true,
+              "hasOpenThreats": false,
               "threats": [
                 {
                   "id": "44c14f29-7f65-4208-886a-632005b85f74",
                   "title": "Gefahr des Log Overflows aufgrund von mangelnder Redundanz",
-                  "status": "Open",
+                  "status": "Mitigated",
                   "severity": "Low",
                   "type": "Repudiation",
                   "description": "Aufgrund dessen, dass der Authentifizierungsserver so viele Daten wie möglich speichern soll, werden diese in der Log-DB gespeichert. Das kann dazu führen, wenn ein Angreifer seine Spuren verwischen will das er einfach mehrere Anfragen erstellt und somit dafür sorgt, dass seine auffällige Anfrage aus der Log-DB verschwindet.\n\nCAPEC-268 : Audit Log Manipulation\nThe attacker injects, manipulates, deletes, or forges malicious log entries into the log file, in an attempt to mislead an audit of the log file or cover tracks of an attack. Due to either insufficient access controls of the log files or the logging mechanism, the attacker is able to perform such actions.\n\nMITRE T1565.001 Data Manipulation: Stored Data Manipulation\nAdversaries may insert, delete, or manipulate data at rest in order to influence external outcomes or hide activity, thus threatening the integrity of the data.[1][2] By manipulating stored data, adversaries may attempt to affect a business process, organizational understanding, and decision making.\n\nStored data could include a variety of file formats, such as Office files, databases, stored emails, and custom file formats. The type of modification and the impact it will have depends on the type of data as well as the goals and objectives of the adversary. For complex systems, an adversary would likely need special expertise and possibly access to specialized software related to the system that would typically be gained through a prolonged information gathering campaign in order to have the desired impact.\n\nDREA:\nD: 2.5 (Grundsätzlich entsteht für das Unternehmen kein großer Schaden außer das nicht nachvollziehbar sein könnte wer potenziell versucht hat anzugreifen)\nR: 10 (Der Angriff kann ohne weiteres wiederholt ausgeführt werden, falls der Angreifer möchte das die Daten aus den Logs verschwinden)\nE: 5 (Der Angreifer benötigt am ehesten ein Bot Netz um eine Vielzahl an Anfragen zu generieren)\nA: 0 (Kein User wäre betroffen, wenn die Logs manipuliert wären)\nGesamt: 17.5",
@@ -2133,7 +2131,7 @@
               ],
               "threatFrequency": {
                 "tampering": 1,
-                "repudiation": 14,
+                "repudiation": 15,
                 "informationDisclosure": 0,
                 "denialOfService": 0
               }
@@ -2885,13 +2883,14 @@
                 "text": "Mail\nServer"
               },
               "body": {
-                "stroke": "red",
-                "strokeWidth": 2.5,
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 18,
             "ports": {
               "groups": {
                 "top": {
@@ -2975,7 +2974,6 @@
               ]
             },
             "id": "d5b308ed-340e-4762-84ef-957ab92e0f4c",
-            "zIndex": 18,
             "data": {
               "type": "tm.Process",
               "name": "Mail\nServer",
@@ -2983,7 +2981,7 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": true,
+              "hasOpenThreats": false,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
@@ -2992,7 +2990,7 @@
                 {
                   "id": "1fbfbabf-b761-4cbd-873f-d72c75f31c5f",
                   "title": "Das SIEM-System schickt einen wöchentlichen Report per E-Mail",
-                  "status": "Open",
+                  "status": "Mitigated",
                   "severity": "Medium",
                   "type": "Information disclosure",
                   "description": "Das SIEM schickt wöchentliche Berichte an den Mail Server diese sind zwar verschlüsselt liegen aber dennoch auf dem Mail Server des Managements und werden von diesen ggf. entschlüsselt und dort abgelegt. Durch einen Phsishing Angriff könnte ein ANgreifer auch an diese Daten kommen. Ggf. auf Brute Forcen um die Daten selbst zu entschlüsseln.\n\nCAPEC-98: Phishing\nPhishing is a social engineering technique where an attacker masquerades as a legitimate entity with which the victim might do business in order to prompt the user to reveal some confidential information (very frequently authentication credentials) that can later be used by an attacker. Phishing is essentially a form of information gathering or \"fishing\" for information. \n\nT1566 – Phishing:\nAdversaries may send phishing messages to gain access to victim systems. All forms of phishing are electronically delivered social engineering. Phishing can be targeted, known as spearphishing. In spearphishing, a specific individual, company, or industry will be targeted by the adversary. More generally, adversaries can conduct non-targeted phishing, such as in mass malware spam campaigns.\n\nDREA:\nD: 5 (Daten ggf. noch verschlüsselt)\nR: 7 (Angreifer kann mehrfache Phishing ANgriffe durchführen ohne weitere Probleme - nur User wird Mail PW ggf. schnell ändern und wird vermutlich nicht nochmal drauf reinfallen)\nE: 10 (Man benötigt nur einen Browser und die Mail des Managements diese sind meist öffentlich bekannt)\nA: 10 (Zwar ist nur der Manager Account betroffen, aber die Daten sind von allen Usern die in den Logs zu erkennen sind ggf. mit Credentials etc.)\nGesamt: 32",
@@ -3007,7 +3005,7 @@
                 "spoofing": 0,
                 "tampering": 0,
                 "repudiation": 0,
-                "informationDisclosure": 15,
+                "informationDisclosure": 16,
                 "denialOfService": 0,
                 "elevationOfPrivilege": 0
               }
