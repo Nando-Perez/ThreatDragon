@@ -444,13 +444,6 @@
               },
               "handlesCardPayment": null,
               "handlesGoodsOrServices": null
-            },
-            "tools": {
-              "items": [
-                "boundary",
-                "button-remove"
-              ],
-              "name": null
             }
           },
           {
