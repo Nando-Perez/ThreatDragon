@@ -568,16 +568,16 @@
                   "severity": "Medium",
                   "type": "Spoofing",
                   "description": "Da der Symmetrische Schlüssel unverschlüsselt auf dem Server gespeichert wird. Können sich Angreifer, falls sie diesen in die Hände bekommen als den Server ausgeben und ggf. Dinge ausführen, die sonst nur der Server durchführen dürfte/könnte.\n\nCAPEC-474 – Signature Spoofing by Key Theft\nAn attacker obtains an authoritative or reputable signer's private signature key by theft and then uses this key to forge signatures from the original signer to mislead a victim into performing actions that benefit the attacker.\n\nMITRE T1552.004 – Unsecured Credentials: Private Keys\nAdversaries may search for private key certificate files on compromised systems for insecurely stored credentials ...\n\n\nDREA:\nD: 10 (Mit dem symmetrischen Schlüssel kann sich der ANgreifer als der Server ausgeben und Daten abfangen und verändern)\nR: 10 (Der ANgriff kann ohne das der Angreifer auffällt beliebig oft durchgeführt werden)\nE: 8 (Angreifer muss an die Daten des Servers kommen um den Schlüssel zu erhalten - Server meist public erreichbar potenzielle Gefahr)\nA: 10 (Alle user des Dienstes wären betroffen, weil der Angreifer ja die Nummer ändern könnte ggf. auf seine um den 2. Faktor selbst zu bestätigen)\nGesamt: 38",
-                  "mitigation": "Maßnahmen:\nDer symmetrische Schlüssel wird nicht unverschlüsselt auf dem Server gespeichert. Stattdessen wird er verschlüsselt an einem seperaten sichern Ort gespeichert z.B. Hardware Sicherheitsmodul (HSM). \nZugriff auf den Schlüssel nur durch deizierte Accounts z.B. Admin. Und regelmäßige Rotation des Schlüssel , damit falls ein Angreifer einen Schlüssel abfängt dieser nicht ewig gültig ist.\n\nKatalog:\nD3EFEND: D3- FE (File Encryption) Encrypting a file using a cryptographic key.\n\nDREA nach Maßnahme:\nD: 2 (Im schlimmsten Fall könnte der Angreifer wenn er an den Schlüssel kommt diesen löschen - wenn überhaupt)\nR: 10 (Angreifer kann weiterhin versuchen an den Schlüssel zu kommen)\nE: 0 (Nur durch ausgewählte User der Schlüssel erreichbar und zusätzlich VErschlüsselt)\nA: 10 (alle user weiterhin betroffen)",
+                  "mitigation": "Maßnahmen:\nDer symmetrische Schlüssel wird nicht unverschlüsselt auf dem Server gespeichert. Stattdessen wird er verschlüsselt an einem seperaten sichern Ort gespeichert z.B. Hardware Sicherheitsmodul (HSM). \nZugriff auf den Schlüssel nur durch deizierte Accounts z.B. Admin. Und regelmäßige Rotation des Schlüssel , damit falls ein Angreifer einen Schlüssel abfängt dieser nicht ewig gültig ist.\n\nKatalog:\nD3EFEND: D3- FE (File Encryption) Encrypting a file using a cryptographic key.\n\nDREA nach Maßnahme:\nD: 2 (Im schlimmsten Fall könnte der Angreifer wenn er an den Schlüssel kommt diesen löschen - wenn überhaupt)\nR: 10 (Angreifer kann weiterhin versuchen an den Schlüssel zu kommen)\nE: 1 (Nur durch ausgewählte User der Schlüssel erreichbar und zusätzlich VErschlüsselt)\nA: 10 (alle user weiterhin betroffen)",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 106,
-                  "score": "22"
+                  "score": "23"
                 }
               ],
               "hasOpenThreats": false,
               "threatFrequency": {
-                "spoofing": 14,
+                "spoofing": 15,
                 "tampering": 0,
                 "repudiation": 0,
                 "informationDisclosure": 1,
@@ -587,6 +587,13 @@
               "handlesCardPayment": null,
               "handlesGoodsOrServices": null,
               "isWebApplication": null
+            },
+            "tools": {
+              "items": [
+                "boundary",
+                "button-remove"
+              ],
+              "name": null
             }
           },
           {
