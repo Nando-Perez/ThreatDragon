@@ -269,7 +269,7 @@
                   "severity": "Low",
                   "type": "Tampering",
                   "description": "Da alle Daten der App auf der SD Karte gespeichert werden können diese leicht manipuliert werden. Da sie am ehesten nicht verschlüsselt auf de SD Karte gespeichert werden und diese SD Karten können oft auch aus Geräten entfernt und isoliert analysiert oder manipuliert werden. Grund dafür ist auch damit andere Anwendungen auf diese Daten zugreifen können.\n\nCAPEC-639: Probe System Files\nAn adversary obtains unauthorized information due to improperly protected files. If an application stores sensitive information in a file that is not protected by proper access control, then an adversary can access the file and search for sensitive information.\n\nMITRE T1409 Stored Application Data\nAdversaries may try to access and collect application data resident on the device. Adversaries often target popular applications, such as Facebook, WeChat, and Gmail.[1]\n\nDue to mobile OS sandboxing, this technique is only possible in three scenarios:\n\nAn application stores files in unprotected external storage\nAn application stores files in its internal storage directory with insecure permissions (e.g. 777)\nThe adversary gains root permissions on the device\n\n\nDREA:\nD: 10 (Da alle Daten ausnahmslos auf der SD Karte gespeichert sind kann dies massiven Schaden sein)\nR: 2.5 (Man braucht physischen Zugang zu dem Gerät, daher vermutlich schwer wiederholbar)\nE:  5 (Man braucht Zugriff auf die Daten der SD Karte am ehesten durch Zugriff auf das Handy)\nA: 10 (Alle User die die App verwenden \nGesamt: 27.5",
-                  "mitigation": "Keine sensiblen App-Daten im externen/Shared Storage (SD-Karte) speichern.\nAlle sensiblen Daten nur in geschütztem App-internen Speicher ablegen; falls doch Speicherung nötig ist, zusätzlich mit starker Kryptografie und Schlüsseln aus dem OS-Keystore schützen.\n\nKatalog\nMASVS-STORAGE-1 \nThe app securely stores sensitive data.\n& \nMASVS-CRYPTO-1\nThe app employs current strong cryptography and uses it according to industry best practices\n\nDREA nach Maßnahme:\nD: 0 (Da keine wichtige Daten mehr extern gespeichert und falls doch sicher verschlüsselt sind)\nR: 2.5 (Man braucht weiterhin physischen Zugang zum Gerät)\nE: 2 (Wichtigsten Daten in einem privaten Storage und nicht mehr auf SD selbst wenn Angreifer an SD kommt sind Daten verschlüsselt)\nA: 10 (Immernoch für alle User relevant)",
+                  "mitigation": "Keine sensiblen App-Daten im externen/Shared Storage (SD-Karte) speichern.\nAlle sensiblen Daten nur in geschütztem App-internen Speicher ablegen; falls doch Speicherung nötig ist, zusätzlich mit starker Kryptografie und Schlüsseln aus dem OS-Keystore schützen.\n\nKatalog\nMASVS-STORAGE-1 \nThe app securely stores sensitive data.\n& \nMASVS-CRYPTO-1\nThe app employs current strong cryptography and uses it according to industry best practices\n\nDREA nach Maßnahme:\nD: 1 (Da keine wichtige Daten mehr extern gespeichert und falls doch sicher verschlüsselt sind)\nR: 2.5 (Man braucht weiterhin physischen Zugang zum Gerät)\nE: 1 (Wichtigsten Daten in einem privaten Storage und nicht mehr auf SD selbst wenn Angreifer an SD kommt sind Daten verschlüsselt)\nA: 10 (Immernoch für alle User relevant)",
                   "modelType": "STRIDE",
                   "new": false,
                   "number": 108,
@@ -282,12 +282,19 @@
               "handlesGoodsOrServices": null,
               "threatFrequency": {
                 "spoofing": 1,
-                "tampering": 12,
+                "tampering": 13,
                 "repudiation": 0,
                 "informationDisclosure": 1,
                 "denialOfService": 5,
                 "elevationOfPrivilege": 0
               }
+            },
+            "tools": {
+              "items": [
+                "boundary",
+                "button-remove"
+              ],
+              "name": null
             }
           },
           {
@@ -587,13 +594,6 @@
               "handlesCardPayment": null,
               "handlesGoodsOrServices": null,
               "isWebApplication": null
-            },
-            "tools": {
-              "items": [
-                "boundary",
-                "button-remove"
-              ],
-              "name": null
             }
           },
           {
